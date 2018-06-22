@@ -8,11 +8,11 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent {
 
-  constructor(public router: Router){
+  constructor(public router: Router) {
 
   }
 
-  onGeoLocationClick(){
+  onGeoLocationClick() {
     this.router.navigateByUrl('/pages/maps/bubble');
   }
 }

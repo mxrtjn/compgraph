@@ -5,7 +5,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { MapsRoutingModule, routedComponents } from './maps-routing.module';
-import { 
+import {
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
@@ -45,7 +45,7 @@ import {
 
 @NgModule({
   imports: [
-    ThemeModule, 
+    ThemeModule,
 
     MatAutocompleteModule,
     MatBadgeModule,
@@ -81,8 +81,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule,    
-    
+    MatTreeModule,
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k',
       libraries: ['places'],
