@@ -1,8 +1,27 @@
+<mat-slider
+thumbLabel
+
+tickInterval="100"
+min="-2000"
+max="2000">
+</mat-slider>
+
 <nb-card>
   <nb-card-header>Bubble Maps</nb-card-header>
   <nb-card-body>
-    <div id="chart" style="height: 150px;"></div>
     <button (click)="onClickRefresh()">Refresh</button>
     <div id="chart2" (chartInit)="onChartInit($event)" echarts [options]="options" class="echarts"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-slider
+          thumbLabel
+          
+          tickInterval="100"
+          min="-2000"
+          max="2000">
+        </mat-slider>
+      </div>
+    </div>
+
   </nb-card-body>
 </nb-card>

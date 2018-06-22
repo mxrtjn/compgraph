@@ -17,6 +17,10 @@ import { DisasterService } from '../../../@core/data/disaster.service';
 })
 export class BubbleMapComponent implements OnDestroy, OnInit {
 
+  // formatLabel(value: number | null) {
+  //   return value + ' year';
+  // }
+
   ngOnInit(): void {
 
   }
