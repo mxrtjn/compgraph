@@ -39,15 +39,25 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
   }
 
   onChangeEvent(e) {
-    const dom = document.getElementById('chart2');
-    const chart = this.es.init(dom);
-    this.options.title.text = 'Disaster World (' + this.yearValue  + (this.yearValue < 0 ? ' A.C' : '') + ')';
-    this.options.series = {
-      type: 'scatter',
-      coordinateSystem: 'geo',
-      data: this.disasterService.getDisasterByYear(this.yearValue),
-    };
-    chart.setOption(this.options, true);
+    this.disasterService.getDisasterByYear(this.yearValue).subscribe(resp => {
+      const result: Array<any> = [];
+      resp.forEach(item => {
+        const value = item.PRIMARY_MAGNITUDE === '' ? 1 : parseFloat(item.PRIMARY_MAGNITUDE);
+        result.push({'name': item.COUNTRY, 'value': [item.LONGITUDE, item.LATITUDE, value],
+        'itemStyle': {'normal': {'color': '#ff386a'}}});
+      });
+      const dom = document.getElementById('chart2');
+      const chart = this.es.init(dom);
+      this.options.title.text = 'Disaster World (' + this.yearValue  + (this.yearValue < 0 ? ' A.C' : '') + ')';
+      this.options.series = {
+        type: 'scatter',
+        coordinateSystem: 'geo',
+        data: result,
+      };
+      chart.setOption(this.options, true);
+      // console.log('resp: ', resp);
+    });
+
 
   }
 
@@ -83,8 +93,8 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
         this.bubbleTheme = config.variables.bubbleMap;
         this.geoColors = [colors.primary, colors.info, colors.success, colors.warning, colors.danger];
 
-        this.min = 324366;
-        this.max = 1347565324;
+        this.min = 1;
+        this.max = 50;
 
         this.options = {
           title: {
