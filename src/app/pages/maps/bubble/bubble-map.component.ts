@@ -42,9 +42,9 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
     this.disasterService.getDisasterByYear(this.yearValue).subscribe(resp => {
       const result: Array<any> = [];
       resp.forEach(item => {
-        const value = item.PRIMARY_MAGNITUDE === '' ? 1 : parseFloat(item.PRIMARY_MAGNITUDE);
+        const value = item.TOTAL_DEATHS === '' ? 1 : parseFloat(item.TOTAL_DEATHS);
         result.push({'name': item.COUNTRY, 'value': [item.LONGITUDE, item.LATITUDE, value],
-        'itemStyle': {'normal': {'color': '#ff386a'}}});
+        'itemStyle': {'normal': {'color': item.color}}});
       });
       const dom = document.getElementById('chart2');
       const chart = this.es.init(dom);
