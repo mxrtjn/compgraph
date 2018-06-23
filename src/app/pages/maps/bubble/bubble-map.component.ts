@@ -17,9 +17,41 @@ import { DisasterService } from '../../../@core/data/disaster.service';
 })
 export class BubbleMapComponent implements OnDestroy, OnInit {
 
-  // formatLabel(value: number | null) {
-  //   return value + ' year';
-  // }
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    if (value > 0) {
+      return value + ' D.C.';
+    } else {
+      if (value < 0) {
+        return (value * -1) + ' A.C.';
+      }
+    }
+    return value;
+  }
+
+  onKeyUpTxt(event: any) {
+    if (event.keyCode === 13) {
+      this.onChangeEvent(null);
+   }
+  }
+
+  onChangeEvent(e) {
+    const dom = document.getElementById('chart2');
+    const chart = this.es.init(dom);
+    this.options.title.text = 'Disaster World (' + this.yearValue  + (this.yearValue < 0 ? ' A.C' : '') + ')';
+    this.options.series = {
+      type: 'scatter',
+      coordinateSystem: 'geo',
+      data: this.disasterService.getDisasterByYear(this.yearValue),
+    };
+    chart.setOption(this.options, true);
+
+  }
+
+  yearValue: number = 1000;
 
   ngOnInit(): void {
 
