@@ -5,6 +5,7 @@ import { MapsComponent } from './maps.component';
 import { GmapsComponent } from './gmaps/gmaps.component';
 import { LeafletComponent } from './leaflet/leaflet.component';
 import { BubbleMapComponent } from './bubble/bubble-map.component';
+import { MapaCalorComponent } from './mapaCalor/mapaCalor.component';
 import { SearchMapComponent } from './search-map/search-map.component';
 import { MapComponent } from './search-map/map/map.component';
 import { SearchComponent } from './search-map/search/search.component';
@@ -22,6 +23,9 @@ const routes: Routes = [{
     path: 'bubble',
     component: BubbleMapComponent,
   }, {
+    path: 'termico',
+    component: MapaCalorComponent,
+  }, {
     path: 'searchmap',
     component: SearchMapComponent,
   }],
@@ -38,6 +42,7 @@ export const routedComponents = [
   GmapsComponent,
   LeafletComponent,
   BubbleMapComponent,
+  MapaCalorComponent,
   SearchMapComponent,
   MapComponent,
   SearchComponent,

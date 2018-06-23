@@ -1,0 +1,15 @@
+@import '../../../@theme/styles/themes';
+//@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@include nb-install-component() {
+
+  nb-card-body {
+    padding: nb-theme(card-padding) 0 0 0;
+  }
+
+  .echarts {
+    width: 100%;
+    height: nb-theme(card-height-large);
+  }
+}

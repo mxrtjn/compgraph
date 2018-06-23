@@ -84,7 +84,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Bubble Maps',
         link: '/pages/maps/bubble',
+      }, {
+        title: 'Mapa Termico',
+        link: '/pages/maps/termico',
       },
+
       // {
       //   title: 'Google Maps',
       //   link: '/pages/maps/gmaps',

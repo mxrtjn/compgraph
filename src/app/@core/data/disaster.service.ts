@@ -192,5 +192,9 @@ export class DisasterService {
     return this.http.get('api/disasters/' + year);
   }
 
+  getDisasterPosition(): Observable<any> {
+    return this.http.get('api/disaster/position');
+  }
+
 
 }
