@@ -61,7 +61,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
 
   }
 
-  yearValue: number = 1000;
+  yearValue: number = 2000;
 
   ngOnInit(): void {
 
@@ -144,10 +144,11 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
             {
               type: 'scatter',
               coordinateSystem: 'geo',
-              data: this.getData(),
+              data: [],
             },
           ],
         };
+        this.onChangeEvent(null);
       });
   }
 
@@ -179,9 +180,9 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
 
   }
 
-  private getData() {
-    // value[longitud,latitud, value]
-    return this.disasterService.getAllDisasters();
-  }
+  // private getData() {
+  //   // value[longitud,latitud, value]
+  //   return this.disasterService.getAllDisasters();
+  // }
 
 }

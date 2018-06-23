@@ -82,7 +82,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-location',
     children: [
       {
-        title: 'Bubble Maps',
+        title: 'Mapa de Desastres',
         link: '/pages/maps/bubble',
       }, {
         title: 'Mapa Termico',
