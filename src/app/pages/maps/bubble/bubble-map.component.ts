@@ -50,7 +50,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
       const chart = this.es.init(dom);
       this.options.title.text = 'Disaster World (' + this.yearValue  + (this.yearValue < 0 ? ' A.C' : '') + ')';
       this.options.series = {
-        type: 'scatter',
+        type: 'effectScatter',
         coordinateSystem: 'geo',
         data: result,
       };

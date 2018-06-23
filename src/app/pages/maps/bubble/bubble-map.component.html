@@ -13,7 +13,7 @@
         <mat-slider
           thumbLabel
           [displayWith]="formatLabel"
-          (change)="onChangeEvent()"
+          (change)="onChangeEvent($event)"
           [(ngModel)]="yearValue"
           tickInterval="100"
           min="-2000"
