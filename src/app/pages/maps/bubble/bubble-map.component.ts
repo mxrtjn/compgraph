@@ -39,11 +39,16 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
   }
 
   onChangeEvent(e) {
-    let that = this;
+    const that = this;
     this.disasterService.getDisasterByYear(this.yearValue).subscribe(resp => {
       const result: Array<any> = [];
+      this.max = 0;
       resp.forEach(item => {
+
         const value = item.TOTAL_DEATHS === '' ? 1 : parseFloat(item.TOTAL_DEATHS);
+        that.max = Math.max(that.max, value);
+
+
         // if(value > that.max){
         //   that.max = value;
         // }
@@ -59,6 +64,8 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
         coordinateSystem: 'geo',
         data: result,
       };
+      this.options.title.subtext = 'Max. Muertes: ' + this.max;
+      this.options.visualMap.max = this.max;
       chart.setOption(this.options, true);
       // console.log('resp: ', resp);
     });
