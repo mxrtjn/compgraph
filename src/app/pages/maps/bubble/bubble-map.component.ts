@@ -39,13 +39,18 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
   }
 
   onChangeEvent(e) {
+    let that = this;
     this.disasterService.getDisasterByYear(this.yearValue).subscribe(resp => {
       const result: Array<any> = [];
       resp.forEach(item => {
         const value = item.TOTAL_DEATHS === '' ? 1 : parseFloat(item.TOTAL_DEATHS);
+        // if(value > that.max){
+        //   that.max = value;
+        // }
         result.push({'name': item.COUNTRY, 'value': [item.LONGITUDE, item.LATITUDE, value],
         'itemStyle': {'normal': {'color': item.color}}});
       });
+      // console.log(this.max);
       const dom = document.getElementById('chart2');
       const chart = this.es.init(dom);
       this.options.title.text = 'Disaster World (' + this.yearValue  + (this.yearValue < 0 ? ' A.C' : '') + ')';
@@ -93,8 +98,8 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
         this.bubbleTheme = config.variables.bubbleMap;
         this.geoColors = [colors.primary, colors.info, colors.success, colors.warning, colors.danger];
 
-        this.min = 1;
-        this.max = 50;
+        this.min = 0;
+        this.max = 316000;
 
         this.options = {
           title: {

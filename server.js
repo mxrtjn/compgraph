@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/api/disasters/:year', function (req, res) {
     // connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR = " + req.params.year, function (err, result, fields) {
-    connection.query("select * from  ((SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , 1 AS TYPE,YEAR,color from tsunami ) union (SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , 1 AS TYPE,YEAR,color from volcan)) as T  where T.year = " + req.params.year, function (err, result, fields) {    
+    connection.query("select * from  ((SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS ,TYPE,YEAR,color from tsunami ) union (SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , TYPE,YEAR,color from volcan)) as T  where T.year = " + req.params.year, function (err, result, fields) {    
     if (err) 
             res.status(500).send(err);
         else{
