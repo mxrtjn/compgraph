@@ -15,4 +15,8 @@ export class DashboardComponent {
   onGeoLocationClick() {
     this.router.navigateByUrl('/pages/maps/bubble');
   }
+
+  onTermoLocationClick(){
+    this.router.navigateByUrl('/pages/maps/termico');
+  }
 }

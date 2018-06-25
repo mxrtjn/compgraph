@@ -40,6 +40,7 @@ onChange($event){
       // console.log('result: ', result);
       const dom = document.getElementById('chartmapcalor');
       const chart = this.es.init(dom);
+      this.options.title.subtext = "Año " + this.yearValue;
       this.options.series = {
         name: 'AQI',
         type: 'heatmap',
