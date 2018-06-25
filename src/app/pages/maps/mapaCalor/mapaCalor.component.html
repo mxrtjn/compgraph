@@ -3,5 +3,22 @@
   <nb-card-header>Mapa Termico</nb-card-header>
   <nb-card-body>
     <div id="chartmapcalor" echarts [options]="options" class="echarts"></div>
+    <div class="row">
+      <div class="col-md-6" style="text-align: center;">
+        <mat-form-field class="example-margin">
+          <input matInput type="number" placeholder="Year" (keyup)="onKeyUpTxt($event)" [(ngModel)]="yearValue">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6" style="text-align: center;">
+        <div class="form-group">
+          <label>Disaster</label>
+          <br>
+          <select [(ngModel)]="disasterType" (change)="onChange($event)">
+            <option value="1">Volcanes</option>
+            <option value="2">Tsunamies</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </nb-card-body>
 </nb-card>

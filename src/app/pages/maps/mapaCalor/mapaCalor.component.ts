@@ -17,8 +17,18 @@ import { DisasterService } from '../../../@core/data/disaster.service';
 })
 export class MapaCalorComponent implements OnDestroy, OnInit {
 
+onKeyUpTxt(event: any) {
+    if (event.keyCode === 13) {
+        this.onChangeEvent(null);
+    }
+}
+
+onChange($event){
+    this.onChangeEvent(null);
+}
+
   onChangeEvent(e) {
-    this.disasterService.getDisasterPosition().subscribe(resp => {
+    this.disasterService.getDisasterPosition(this.yearValue, this.disasterType).subscribe(resp => {
       const result: Array<any> = [];
       resp.forEach(item => {
         const value = item.PRIMARY_MAGNITUDE === '' ? 1 : parseFloat(item.PRIMARY_MAGNITUDE);
@@ -40,7 +50,8 @@ export class MapaCalorComponent implements OnDestroy, OnInit {
 
   }
 
-  yearValue: number = 1000;
+  yearValue: number = 2000;
+  disasterType: number = 1;
 
   ngOnInit(): void {
 

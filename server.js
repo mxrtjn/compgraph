@@ -24,8 +24,8 @@ app.get('/api/disasters/:year', function (req, res) {
         }
     });    
 });
-app.get('/api/disaster/position', function (req, res) {
-    connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR >= 2000", function (err, result, fields) {
+app.get('/api/disaster/position/:year/:disasterType', function (req, res) {
+    connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR = " + req.params.year, function (err, result, fields) {
         if (err) 
             res.status(500).send(err);
         else{
