@@ -24,14 +24,18 @@ onKeyUpTxt(event: any) {
 }
 
 onChange($event){
+    this.max = 0;
     this.onChangeEvent(null);
 }
 
   onChangeEvent(e) {
+    const that = this;
     this.disasterService.getDisasterPosition(this.yearValue, this.disasterType).subscribe(resp => {
       const result: Array<any> = [];
+      this.max = 0;
       resp.forEach(item => {
-        const value = item.PRIMARY_MAGNITUDE === '' ? 1 : parseFloat(item.PRIMARY_MAGNITUDE);
+        const value = item.TOTAL_DEATHS === '' ? 1 : parseFloat(item.TOTAL_DEATHS);
+        that.max = Math.max(that.max, value);
         result.push([item.LONGITUDE, item.LATITUDE, value]);
       });
       // console.log('result: ', result);
@@ -85,6 +89,7 @@ onChange($event){
 
         this.min = 1;
         this.max = 50;
+        const that = this;
 
         this.options = {
           title: {
@@ -99,7 +104,7 @@ onChange($event){
           backgroundColor: '#404a59',
           visualMap: {
               min: 0,
-              max: 20,
+              max: Math.floor(that.max/4)*4,
               splitNumber: 4,
               inRange: {
                   color: ['#d94e5d', '#eac736', '#50a3ba'].reverse(),

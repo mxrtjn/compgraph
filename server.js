@@ -25,14 +25,27 @@ app.get('/api/disasters/:year', function (req, res) {
     });    
 });
 app.get('/api/disaster/position/:year/:disasterType', function (req, res) {
-    connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR = " + req.params.year, function (err, result, fields) {
-        if (err) 
-            res.status(500).send(err);
-        else{
-            //console.log('fields: ', fields);
-            res.send(result);
+    // connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR = " + req.params.year, function (err, result, fields) {
+    if(req.params.disasterType == "1"){
+        connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , TYPE,YEAR,color from tsunami where year = " + req.params.year, function (err, result, fields) {    
+            if (err) 
+                res.status(500).send(err);
+            else{
+                //console.log('fields: ', fields);
+                res.send(result);
+            }
+        });    
+    }
+    else{
+        connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS ,TYPE,YEAR,color from volcan where year = " +  req.params.year, function (err, result, fields) {    
+               if (err) 
+                    res.status(500).send(err);
+                else{
+                    //console.log('fields: ', fields);
+                    res.send(result);
+                }
+            });    
         }
-    });    
 });
 
 connection.connect(function(err) {
