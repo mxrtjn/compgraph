@@ -9,6 +9,7 @@ import { NgxEchartsService } from 'ngx-echarts';
 import { NbThemeService } from '@nebular/theme';
 // import { Jsonp } from '@angular/http';
 import { DisasterService } from '../../../@core/data/disaster.service';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'ngx-bubble-map',
@@ -36,6 +37,23 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
     if (event.keyCode === 13) {
       this.onChangeEvent(null);
    }
+  }
+
+  onAutomatic(){
+    var that = this;
+    this.disasterService.getYears().subscribe(year => {
+      
+      let index = 0;
+      let timer = Observable.timer(1000, 4000);
+      timer.subscribe(()=>{
+
+        that.yearValue = year[index].year;
+        console.log(that.yearValue);
+        that.onChangeEvent(null);
+        index++;
+      });      
+
+    });
   }
 
   onChangeEvent(e) {

@@ -1,6 +1,8 @@
 
 <nb-card>
-  <nb-card-header>Mapa de Desastres</nb-card-header>
+  <nb-card-header>Mapa de Desastres
+    <button (click)="onAutomatic()">Automatic</button>
+  </nb-card-header>
   <nb-card-body>
     <div id="chart2" (chartInit)="onChartInit($event)" echarts [options]="options" class="echarts"></div>
     <div class="row">

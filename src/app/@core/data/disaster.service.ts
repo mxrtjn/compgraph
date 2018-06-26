@@ -196,5 +196,9 @@ export class DisasterService {
     return this.http.get('api/disaster/position/' + year + '/' + disasterType);
   }
 
+  getYears(): Observable<any>{
+    return this.http.get('/api/year/data');
+  }
+
 
 }
