@@ -24,7 +24,6 @@ onKeyUpTxt(event: any) {
 }
 
 onChange($event){
-    this.max = 0;
     this.onChangeEvent(null);
 }
 
