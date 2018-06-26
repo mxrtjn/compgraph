@@ -24,10 +24,23 @@ app.get('/api/disasters/:year', function (req, res) {
         }
     });    
 });
+
+app.get('/api/year/data',function(req, res){
+    var query = 'select total.year from ((select year,count(*) from tsunami  group by 1) union (select year,count(*) from volcan group by 1 )) as total  order by 1 asc'
+    connection.query(query, function (err, result, fields) {    
+        if (err) 
+                res.status(500).send(err);
+            else{
+                //console.log('fields: ', fields);
+                res.send(result);
+            }
+        });        
+});
+
 app.get('/api/disaster/position/:year/:disasterType', function (req, res) {
     // connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, PRIMARY_MAGNITUDE, 1 AS TYPE FROM tsunami WHERE YEAR = " + req.params.year, function (err, result, fields) {
     if(req.params.disasterType == "1"){
-        connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , TYPE,YEAR,color from tsunami where year = " + req.params.year, function (err, result, fields) {    
+        connection.query("SELECT COUNTRY, LATITUDE, LONGITUDE, TOTAL_DEATHS , TYPE,YEAR, color from tsunami where year = " + req.params.year, function (err, result, fields) {    
             if (err) 
                 res.status(500).send(err);
             else{
