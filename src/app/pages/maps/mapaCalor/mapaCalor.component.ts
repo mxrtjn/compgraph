@@ -54,6 +54,12 @@ onChange($event){
 
   }
 
+  range=[800,1200];
+  rangeChanged(event:any){
+      console.log(event);
+  }  
+
+
   yearValue: number = 2000;
   disasterType: number = 1;
 
@@ -145,6 +151,5 @@ onChange($event){
 
   ngOnDestroy() {
     this.alive = false;
-  }
-
+  }                            
 }

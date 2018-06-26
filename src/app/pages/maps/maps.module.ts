@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgxEchartsModule } from 'ngx-echarts';
-
+import { RangeSliderModule  } from 'ngx-rangeslider-component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { MapsRoutingModule, routedComponents } from './maps-routing.module';
 import {
@@ -82,7 +82,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-
+    RangeSliderModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k',
       libraries: ['places'],
