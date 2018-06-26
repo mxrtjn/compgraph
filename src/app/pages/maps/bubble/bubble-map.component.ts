@@ -18,42 +18,90 @@ import {Observable} from 'rxjs/Rx';
 })
 export class BubbleMapComponent implements OnDestroy, OnInit {
 
-  formatLabel(value: number | null) {
-    if (!value) {
-      return 0;
-    }
+  player: any = { paused: true};
+  yearsWithData: Array<any> = [];
+  yearValue: number = 1900;
+  range=[this.yearValue,2016];  
+  mapData: any[];
+  max = -Infinity;
+  min = Infinity;
+  options: any;
+  bubbleTheme: any;
+  geoColors: any[];  
+  timer = Observable.timer(200, 4000);
+  subscription: any = null;
 
-    if (value > 0) {
-      return value + ' D.C.';
-    } else {
-      if (value < 0) {
-        return (value * -1) + ' A.C.';
+  ngOnInit(): void {
+    var that = this;
+    this.disasterService.getYears().subscribe(years => {
+      that.yearsWithData = years;
+    });
+  }
+
+  private getYearsFromRange(min: number, max: number):Array<any> {
+    const result: Array<any> = [];
+    this.yearsWithData.forEach(item => {
+      if(item.year >= min && item.year <= max){
+        result.push(item.year);
       }
-    }
-    return value;
+    });
+    return result;
   }
 
   onKeyUpTxt(event: any) {
     if (event.keyCode === 13) {
       this.onChangeEvent(null);
+      this.range = [this.yearValue, this.range[1]];
    }
   }
 
-  onAutomatic(){
+  onPlayClick(){
     var that = this;
-    this.disasterService.getYears().subscribe(year => {
+    if(that.player.paused) {//if press play
+      that.player.paused = false;
+      let years: Array<any> = that.getYearsFromRange(that.range[0], that.range[1]);
       
       let index = 0;
-      let timer = Observable.timer(1000, 4000);
-      timer.subscribe(()=>{
-
-        that.yearValue = year[index].year;
-        console.log(that.yearValue);
+      that.subscription = that.timer.subscribe(() => {
+        that.yearValue = years[index];
+        that.range = [that.yearValue, that.range[1]];
         that.onChangeEvent(null);
         index++;
-      });      
+        if(index >= years.length ){
+          that.player.paused = true;
+          that.subscription.unsubscribe();
+        }
+      });  
+    }
+    else {//if press paused
+      that.player.paused = true;
+      if(that.subscription)
+        that.subscription.unsubscribe();
+    }
+  }
 
-    });
+  onNextClick() {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+    this.player.paused = true;
+    this.yearValue = Math.min(this.yearValue + 1, 2016);
+    this.range = [this.yearValue, this.range[1]];
+    this.onChangeEvent(null);
+  }
+
+  onPrevClick() {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }  
+    this.player.paused = true;
+    this.yearValue = Math.max(this.yearValue - 1, -4360);  
+    this.range = [this.yearValue, this.range[1]];
+    this.onChangeEvent(null);
+  }
+
+  rangeChanged(){
+
   }
 
   onChangeEvent(e) {
@@ -65,11 +113,6 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
 
         const value = item.TOTAL_DEATHS === '' ? 1 : parseFloat(item.TOTAL_DEATHS);
         that.max = Math.max(that.max, value);
-
-
-        // if(value > that.max){
-        //   that.max = value;
-        // }
         result.push({'name': item.COUNTRY, 'value': [item.LONGITUDE, item.LATITUDE, value],
         'itemStyle': {'normal': {'color': item.color}}});
       });
@@ -91,19 +134,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
 
   }
 
-  yearValue: number = 2000;
 
-  ngOnInit(): void {
-
-  }
-
-  mapData: any[];
-  max = -Infinity;
-  min = Infinity;
-  options: any;
-
-  bubbleTheme: any;
-  geoColors: any[];
   private alive = true;
 
   constructor(private theme: NbThemeService,
@@ -128,7 +159,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
 
         this.options = {
           title: {
-            text: 'World Population (2011)',
+            text: 'World Population (' + this.yearValue + ')',
             left: 'center',
             top: 'top',
             textStyle: {
@@ -150,7 +181,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
             },
           },
           geo: {
-            name: 'World Population (2010)',
+            name: 'World Population (' + this.yearValue + ')',
             type: 'map',
             map: 'world',
             roam: true,

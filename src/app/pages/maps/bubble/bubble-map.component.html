@@ -1,26 +1,29 @@
 
 <nb-card>
-  <nb-card-header>Mapa de Desastres
-    <button (click)="onAutomatic()">Automatic</button>
-  </nb-card-header>
+  <nb-card-header>Mapa de Desastres</nb-card-header>
   <nb-card-body>
-    <div id="chart2" (chartInit)="onChartInit($event)" echarts [options]="options" class="echarts"></div>
+    <div id="chart2" (chartInit)="onChartInit($event)" echarts [options]="options" class="echarts" style="width: 95%;height: 450px;"></div>
     <div class="row">
-      <div class="col-md-12" style="text-align: center;">
-        <mat-form-field class="example-margin">
-          <input matInput type="number" placeholder="Year" (keyup)="onKeyUpTxt($event)" [(ngModel)]="yearValue">
-        </mat-form-field>
+      <div class="col-md-12" style="margin-left: 30px;">
+          <range-slider [min]="-4360" [max]="2016" [step]="1" [(ngModel)]="range" (onRangeChange)="rangeChanged($event)" 
+          disabled="player.paused"
+          [highlightClass]="'highlightClass'" [barClass]="'barClass'" [sliderClass]="'sliderClass'"></range-slider>
       </div>
       <div class="col-md-12">
-        <mat-slider
-          thumbLabel
-          [displayWith]="formatLabel"
-          (change)="onChangeEvent($event)"
-          [(ngModel)]="yearValue"
-          tickInterval="100"
-          min="-4360"
-          max="2016">
-        </mat-slider>
+          <div class="controls">
+            <i class="nb-shuffle shuffle" [class.active]="shuffle" (click)="toggleShuffle()" style="visibility: hidden;"></i>
+            <i class="nb-skip-backward prev" (click)="onPrevClick()"></i>
+            <i class="play" [class.nb-play]="player.paused" [class.nb-pause]="!player.paused" (click)="onPlayClick()"></i>
+            <i class="nb-skip-forward next" (click)="onNextClick()"></i>
+            <i class="nb-loop loop" [class.active]="player.loop" (click)="toggleLoop()" style="visibility: hidden;"></i>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="text-align: center;">
+        <mat-form-field class="example-margin" style="width: 80px;" >
+          <input matInput type="number" disabled="{{!player.paused}}" placeholder="Año" (keyup)="onKeyUpTxt($event)" [(ngModel)]="yearValue">
+        </mat-form-field>
       </div>
     </div>
 

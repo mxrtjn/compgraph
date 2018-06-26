@@ -137,3 +137,28 @@ mat-slider {
     font-size: 10px;
     text-align: center;
   }
+
+  .barClass {
+    width:95%;
+    height:5px;
+    background:lightgray;
+    border-radius:5px;
+    }
+
+.sliderClass
+{
+    width:14px;
+    height:14px;
+    background:white;
+    border-radius:50%;    
+    border:1px solid #40dc7e;
+    bottom:-72% !important;
+    }
+.highlightClass{
+    background:#40dc7e;
+}
+
+.controls .prev:hover, .controls .play:hover, .controls .next:hover{
+  color: #40dc7e;
+  border-color: #40dc7e!important;
+}
