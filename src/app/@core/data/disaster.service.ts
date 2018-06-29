@@ -192,8 +192,8 @@ export class DisasterService {
     return this.http.get('api/disasters/' + year);
   }
 
-  getDisasterPosition(year: number, disasterType: number): Observable<any> {
-    return this.http.get('api/disaster/position/' + year + '/' + disasterType);
+  getDisastersHotMap(startYear: number, endYear: number, disasterType: number): Observable<any> {
+    return this.http.get('api/disaster/hotmap/' + startYear + '/' + endYear + '/' + disasterType);
   }
 
   getYears(): Observable<any>{

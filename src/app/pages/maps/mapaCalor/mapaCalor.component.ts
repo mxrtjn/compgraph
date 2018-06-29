@@ -17,11 +17,10 @@ import { DisasterService } from '../../../@core/data/disaster.service';
 })
 export class MapaCalorComponent implements OnDestroy, OnInit {
 
-onKeyUpTxt(event: any) {
-    if (event.keyCode === 13) {
-        this.onChangeEvent(null);
-    }
-}
+disasters = [
+    {value: 1, name: 'Tsunamies'},
+    {value: 2, name: 'Volcans'},
+  ];
 
 onChange($event){
     this.onChangeEvent(null);
@@ -29,7 +28,7 @@ onChange($event){
 
   onChangeEvent(e) {
     const that = this;
-    this.disasterService.getDisasterPosition(this.yearValue, this.disasterType).subscribe(resp => {
+    this.disasterService.getDisastersHotMap(this.range[0], this.range[1], this.disasterType).subscribe(resp => {
       const result: Array<any> = [];
       this.max = 0;
       resp.forEach(item => {
@@ -40,7 +39,7 @@ onChange($event){
       // console.log('result: ', result);
       const dom = document.getElementById('chartmapcalor');
       const chart = this.es.init(dom);
-      this.options.title.subtext = "Año " + this.yearValue;
+      this.options.title.subtext = "Desde el año " + this.range[0] + " hasta el año " + this.range[1];
       this.options.series = {
         name: 'AQI',
         type: 'heatmap',
@@ -54,13 +53,12 @@ onChange($event){
 
   }
 
-  range=[800,1200];
+  range=[1900,2016]; 
+  
   rangeChanged(event:any){
-      console.log(event);
+    this.onChangeEvent(null);
   }  
 
-
-  yearValue: number = 2000;
   disasterType: number = 1;
 
   ngOnInit(): void {

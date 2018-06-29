@@ -1,39 +1,23 @@
 <nb-card>
   <nb-card-header>Mapa Termico</nb-card-header>
   <nb-card-body>
-    <div id="chartmapcalor" echarts [options]="options" class="echarts"></div>
-    <!-- <div class="row">
-      <div class="col-md-6" style="text-align: center;">
-        <mat-form-field class="example-margin">
-          <input matInput type="number" placeholder="From Year" (keyup)="onKeyUpTxt($event)" [(ngModel)]="yearValue">
-        </mat-form-field>
-      </div>
-      <div class="col-md-6" style="text-align: center;">
-        <div class="form-group">
-          <label>Disaster</label>
-          <br>
-          <select [(ngModel)]="disasterType" (change)="onChange($event)">
-            <option value="1">Tsunamies</option>
-            <option value="2">Volcans</option>
-          </select>
+    <div id="chartmapcalor" echarts [options]="options" class="echarts" style="width: 100%;height: 450px;"></div>
+    <div class="row">
+        <div class="col-md-12" style="margin-left: 30px;margin-top: 30px;">
+            <range-slider [min]="-4360" [max]="2016" [step]="1" [(ngModel)]="range" (onRangeChange)="rangeChanged($event)" 
+            disabled="player.paused"
+            [highlightClass]="'highlightClass'" [barClass]="'barClass'" [sliderClass]="'sliderClass'"></range-slider>
         </div>
-      </div>
-    </div> -->
-    <div class="row" style="padding: 10px 10px;">
-        <div class="col-md-4" style="text-align: center;">
-            <div class="form-group">
-              <label>Disaster</label>
-              <select style="height: 80px;" class="form-control" [(ngModel)]="disasterType" (change)="onChange($event)">
-                <option value="1">Tsunamies</option>
-                <option value="2">Volcans</option>
-              </select>
-            </div>
-        </div>
-        <div class="col-md-8" style="text-align: center;">
-            <div class="form-group">
-              <label>Range Years</label>  
-              <range-slider class="form-control" [min]="0" [max]="2016" [step]="1" [(ngModel)]="range" (onRangeChange)="rangeChanged($event)"></range-slider>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <mat-form-field>
+                <mat-select placeholder="Disasters" [(ngModel)]="disasterType" (selectionChange)="onChange($event)">
+                  <mat-option *ngFor="let disaster of disasters" [value]="disaster.value">
+                    {{disaster.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
     </div>
   </nb-card-body>
