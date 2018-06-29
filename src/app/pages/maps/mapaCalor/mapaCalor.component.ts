@@ -108,7 +108,7 @@ onChange($event){
           backgroundColor: '#404a59',
           visualMap: {
               min: 0,
-              max: Math.floor(that.max/4)*4,
+              max: Math.floor(that.max/4)*4, //316000
               splitNumber: 4,
               inRange: {
                   color: ['#d94e5d', '#eac736', '#50a3ba'].reverse(),
