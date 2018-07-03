@@ -28,7 +28,7 @@ export class BubbleMapComponent implements OnDestroy, OnInit {
   options: any;
   bubbleTheme: any;
   geoColors: any[];  
-  timer = Observable.timer(200, 4000);
+  timer = Observable.timer(200, 2000);
   subscription: any = null;
 
   ngOnInit(): void {
